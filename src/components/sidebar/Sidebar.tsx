@@ -20,11 +20,11 @@ export function Sidebar() {
   ];
   const mapMenuItems = menuItems.map((item) => (
     <div
+      onClick={() => setIsOpen((prev) => !prev)}
       key={item.name}
       className="flex items-center gap-5 cursor-pointer hover:bg-gray-700 rounded px-5 py-2"
     >
       <span
-        onClick={() => setIsOpen((prev) => !prev)}
         data-tooltip-id={!isOpen ? "sidebar-tooltip" : undefined}
         data-tooltip-content={!isOpen ? item.name : undefined}
       >
