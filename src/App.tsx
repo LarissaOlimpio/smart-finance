@@ -1,14 +1,20 @@
 import "./App.css";
-import { Sidebar } from "./components/sidebar/Sidebar";
+import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { routeTree } from './routeTree.gen.ts'
 
+
+const router = createRouter({ routeTree })
+
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}
 function App() {
   return (
-    <div className="flex">
-      <Sidebar></Sidebar>
-      <div className="flex-1 min-h-screen bg-blue-200 flex items-center justify-center">
-        <h1>Smart Finance</h1>
-      </div>
-    </div>
+ 
+      <RouterProvider router={router} />
+   
   );
 }
 
