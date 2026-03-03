@@ -3,7 +3,7 @@ import { Sidebar } from "../components/sidebar/Sidebar";
 
 export const Route = createRootRoute({
   component: () => (
-    <div>
+    <div className="flex">
       <Sidebar></Sidebar>
       <main>
         <Outlet />
