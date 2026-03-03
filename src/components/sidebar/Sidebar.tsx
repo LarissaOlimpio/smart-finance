@@ -14,8 +14,8 @@ export function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const menuItems: MenuItem[] = [
     { name: "Dashboard", icon: <RxDashboard /> },
-    { name: "Income", icon: <GrMoney /> },
-    { name: "Expenses", icon: <LuTrendingDown /> },
+    { name: "Inflow", icon: <GrMoney /> },
+    { name: "Outflow", icon: <LuTrendingDown /> },
     { name: "Logout", icon: <LuLogOut /> },
   ];
   const mapMenuItems = menuItems.map((item) => (
