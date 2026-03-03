@@ -5,7 +5,6 @@ import { FaBars } from "react-icons/fa";
 import { GrMoney } from "react-icons/gr";
 import { LuLogOut, LuTrendingDown } from "react-icons/lu";
 import { RxDashboard } from "react-icons/rx";
-import { Tooltip } from "react-tooltip";
 import { Tooltip } from "@radix-ui/themes";
 
 interface MenuItem {
@@ -52,7 +51,6 @@ export function Sidebar() {
         </button>
         <nav className=" flex flex-col gap-11">{mapMenuItems}</nav>
       </motion.div>
-      {!isOpen && <Tooltip id="sidebar-tooltip" offset={30} />}
     </div>
   );
 }
