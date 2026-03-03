@@ -12,6 +12,7 @@
     "watch-routes": "tsr watch"
   },
   "dependencies": {
+    "@radix-ui/themes": "^3.3.0",
     "@tailwindcss/vite": "^4.2.1",
     "@tanstack/react-router": "^1.163.3",
     "@tanstack/react-router-devtools": "^1.163.3",
