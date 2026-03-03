@@ -9,9 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as OutfloxRouteImport } from './routes/outflox'
 import { Route as InflowRouteImport } from './routes/inflow'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 
+const OutfloxRoute = OutfloxRouteImport.update({
+  id: '/outflox',
+  path: '/outflox',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InflowRoute = InflowRouteImport.update({
   id: '/inflow',
   path: '/inflow',
@@ -26,31 +32,42 @@ const DashboardRoute = DashboardRouteImport.update({
 export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/inflow': typeof InflowRoute
+  '/outflox': typeof OutfloxRoute
 }
 export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/inflow': typeof InflowRoute
+  '/outflox': typeof OutfloxRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/dashboard': typeof DashboardRoute
   '/inflow': typeof InflowRoute
+  '/outflox': typeof OutfloxRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/dashboard' | '/inflow'
+  fullPaths: '/dashboard' | '/inflow' | '/outflox'
   fileRoutesByTo: FileRoutesByTo
-  to: '/dashboard' | '/inflow'
-  id: '__root__' | '/dashboard' | '/inflow'
+  to: '/dashboard' | '/inflow' | '/outflox'
+  id: '__root__' | '/dashboard' | '/inflow' | '/outflox'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   InflowRoute: typeof InflowRoute
+  OutfloxRoute: typeof OutfloxRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/outflox': {
+      id: '/outflox'
+      path: '/outflox'
+      fullPath: '/outflox'
+      preLoaderRoute: typeof OutfloxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/inflow': {
       id: '/inflow'
       path: '/inflow'
@@ -71,6 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   InflowRoute: InflowRoute,
+  OutfloxRoute: OutfloxRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
