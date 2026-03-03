@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { FaBars } from "react-icons/fa";
@@ -8,20 +9,22 @@ import { Tooltip } from "react-tooltip";
 
 interface MenuItem {
   name: string;
+  path: string;
   icon: React.ReactNode;
 }
 export function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const menuItems: MenuItem[] = [
-    { name: "Dashboard", icon: <RxDashboard /> },
-    { name: "Inflow", icon: <GrMoney /> },
-    { name: "Outflow", icon: <LuTrendingDown /> },
-    { name: "Logout", icon: <LuLogOut /> },
+    { name: "Dashboard", path: "/dashboard", icon: <RxDashboard /> },
+    { name: "Inflow", path: "/inflow", icon: <GrMoney /> },
+    { name: "Outflow", path: "/outflow", icon: <LuTrendingDown /> },
+    { name: "Logout", path: "/", icon: <LuLogOut /> },
   ];
   const mapMenuItems = menuItems.map((item) => (
-    <div
+    <Link
       onClick={() => setIsOpen((prev) => !prev)}
       key={item.name}
+      to={item.path}
       className="flex items-center gap-5 cursor-pointer hover:bg-gray-700 rounded px-5 py-2"
     >
       <span
@@ -31,7 +34,7 @@ export function Sidebar() {
         {item.icon}
       </span>
       {isOpen && <span>{item.name}</span>}
-    </div>
+    </Link>
   ));
   return (
     <div>
