@@ -9,14 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as OutfloxRouteImport } from './routes/outflox'
+import { Route as OutflowRouteImport } from './routes/outflow'
 import { Route as InflowRouteImport } from './routes/inflow'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 
-const OutfloxRoute = OutfloxRouteImport.update({
-  id: '/outflox',
-  path: '/outflox',
+const OutflowRoute = OutflowRouteImport.update({
+  id: '/outflow',
+  path: '/outflow',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InflowRoute = InflowRouteImport.update({
@@ -39,43 +39,43 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/inflow': typeof InflowRoute
-  '/outflox': typeof OutfloxRoute
+  '/outflow': typeof OutflowRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/inflow': typeof InflowRoute
-  '/outflox': typeof OutfloxRoute
+  '/outflow': typeof OutflowRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/inflow': typeof InflowRoute
-  '/outflox': typeof OutfloxRoute
+  '/outflow': typeof OutflowRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/inflow' | '/outflox'
+  fullPaths: '/' | '/dashboard' | '/inflow' | '/outflow'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/inflow' | '/outflox'
-  id: '__root__' | '/' | '/dashboard' | '/inflow' | '/outflox'
+  to: '/' | '/dashboard' | '/inflow' | '/outflow'
+  id: '__root__' | '/' | '/dashboard' | '/inflow' | '/outflow'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
   InflowRoute: typeof InflowRoute
-  OutfloxRoute: typeof OutfloxRoute
+  OutflowRoute: typeof OutflowRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/outflox': {
-      id: '/outflox'
-      path: '/outflox'
-      fullPath: '/outflox'
-      preLoaderRoute: typeof OutfloxRouteImport
+    '/outflow': {
+      id: '/outflow'
+      path: '/outflow'
+      fullPath: '/outflow'
+      preLoaderRoute: typeof OutflowRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/inflow': {
@@ -106,7 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
   InflowRoute: InflowRoute,
-  OutfloxRoute: OutfloxRoute,
+  OutflowRoute: OutflowRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
