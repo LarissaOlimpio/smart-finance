@@ -6,6 +6,7 @@ import { GrMoney } from "react-icons/gr";
 import { LuLogOut, LuTrendingDown } from "react-icons/lu";
 import { RxDashboard } from "react-icons/rx";
 import { Tooltip } from "react-tooltip";
+import { Tooltip } from "@radix-ui/themes";
 
 interface MenuItem {
   name: string;
@@ -27,12 +28,10 @@ export function Sidebar() {
       to={item.path}
       className="flex items-center gap-5 cursor-pointer hover:bg-gray-700 rounded px-5 py-2"
     >
-      <span
-        data-tooltip-id={!isOpen ? "sidebar-tooltip" : undefined}
-        data-tooltip-content={!isOpen ? item.name : undefined}
-      >
-        {item.icon}
-      </span>
+      <Tooltip content={!isOpen ? item.name : undefined}>
+        <span>{item.icon}</span>
+      </Tooltip>
+
       {isOpen && <span>{item.name}</span>}
     </Link>
   ));
