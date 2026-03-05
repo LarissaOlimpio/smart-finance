@@ -110,7 +110,11 @@ export default function Modal({
 
           <Flex gap="3" mt="4" justify="end">
             <Dialog.Close>
-              <Button variant="soft" color="gray">
+              <Button
+                variant="soft"
+                color="gray"
+                onClick={() => setFormData({ title: "", amount: 0, date: "" })}
+              >
                 Cancel
               </Button>
             </Dialog.Close>
