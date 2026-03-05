@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import Modal from "../components/Modal/Modal";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import TableComponent from "../components/Table/TableComponent";
 
 interface Inflow {
   id: string;
@@ -37,24 +38,8 @@ function InflowComponent() {
         />
       </div>
       <div>
-        <p>No inflows yet(table)</p>
-        {inflows.map((item) => (
-          <tr
-            key={item.id}
-            className="border-b hover:bg-gray-50 transition-colors"
-          >
-            <td className="p-4 text-gray-800">{item.title}</td>
-            <td className="p-4 text-gray-500 text-sm">
-              {new Date(item.date).toLocaleDateString("pt-BR")}
-            </td>
-            <td className="p-4 text-right font-medium text-green-600">
-              + R${" "}
-              {item.amount.toLocaleString("pt-BR", {
-                minimumFractionDigits: 2,
-              })}
-            </td>
-          </tr>
-        ))}
+        {inflows.length === 0 && <p>No inflows yet</p>}
+        <TableComponent data={inflows} />
       </div>
     </div>
   );
