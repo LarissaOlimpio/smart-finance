@@ -40,7 +40,7 @@ export function Sidebar() {
   return (
     <>
       <button
-        className="md:hidden fixed top-4 left-4 z-50 p-3 text-black "
+        className="md:hidden absolute top-4 left-4 z-50 p-3 text-black "
         onClick={toggleModal}
       >
         <FaBars />

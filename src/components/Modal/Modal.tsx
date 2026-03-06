@@ -59,6 +59,7 @@ export default function Modal({
     cleanFormData();
     setIsOpen(false);
   };
+  console.log(formData.amount);
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger>
