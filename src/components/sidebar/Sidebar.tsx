@@ -24,32 +24,50 @@ export function Sidebar() {
     <Link
       key={item.name}
       to={item.path}
+      onClick={() => setIsOpen(false)}
       className="flex items-center gap-5 cursor-pointer hover:bg-gray-700 rounded px-5 py-2"
     >
       <Tooltip content={!isOpen ? item.name : undefined}>
         <span>{item.icon}</span>
       </Tooltip>
 
-      {isOpen && <span>{item.name}</span>}
+      {isOpen && <span className="whitespace-nowrap">{item.name}</span>}
     </Link>
   ));
   return (
-    <div>
+    <>
+      <button
+        className="md:hidden fixed top-4 left-4 z-50 p-3 text-black "
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        <FaBars />
+      </button>
+      {isOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
       <motion.div
         initial={{ width: 60 }}
         animate={{ width: isOpen ? 240 : 60 }}
         transition={{ duration: 0.4 }}
-        className="w-64 h-screen bg-gray-800 text-white "
+        className={`
+          fixed top-0 left-0 h-screen bg-gray-800 text-white z-50 flex flex-col overflow-hidden
+          transition-transform duration-300 ease-in-out
+          md:relative md:translate-x-0
+          ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        `}
       >
         {" "}
         <button
-          className="mb-10 p-5"
+          className="hidden md:block mb-10 p-5 w-fit"
           onClick={() => setIsOpen((prev) => !prev)}
         >
           <FaBars />
         </button>
-        <nav className=" flex flex-col gap-11">{mapMenuItems}</nav>
+        <nav className="flex flex-col gap-8 mt-16 md:mt-0">{mapMenuItems}</nav>
       </motion.div>
-    </div>
+    </>
   );
 }
