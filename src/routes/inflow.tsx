@@ -3,6 +3,7 @@ import { useState } from "react";
 import Modal from "../components/Modal/Modal";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import TableComponent from "../components/Table/TableComponent";
+import Pagination from "../components/Pagination/Pagination";
 
 interface Inflow {
   id: string;
@@ -23,6 +24,13 @@ export const Route = createFileRoute("/inflow")({
 function InflowComponent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inflows, setInflows] = useLocalStorage<Inflow[]>("inflows", []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(inflows.length / itemsPerPage);
+  const starIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = starIndex + itemsPerPage;
+  const currentInflows = inflows.slice(starIndex, endIndex);
+
   const category: categoryOptions[] = [
     { name: "salary", value: "Salary" },
     { name: "vacation pay", value: "Vacation Pay" },
@@ -52,8 +60,13 @@ function InflowComponent() {
       </div>
       <div>
         {inflows.length === 0 && <p>No inflows yet</p>}
-        <TableComponent data={inflows} />
+        <TableComponent data={currentInflows} />
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={(page: number) => setCurrentPage(page)}
+      />
     </div>
   );
 }

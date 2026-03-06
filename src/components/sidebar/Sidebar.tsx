@@ -12,7 +12,7 @@ interface MenuItem {
   path: string;
   icon: React.ReactNode;
 }
-export function Sidebar() {
+export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleModal = () => setIsOpen((prev) => !prev);
   const closeModal = () => setIsOpen(false);
