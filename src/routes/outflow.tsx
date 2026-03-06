@@ -3,6 +3,7 @@ import { useState } from "react";
 import Modal from "../components/Modal/Modal";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import TableComponent from "../components/Table/TableComponent";
+import Pagination from "../components/Pagination/Pagination";
 
 interface Outflow {
   id: string;
@@ -22,6 +23,13 @@ export const Route = createFileRoute("/outflow")({
 function OutflowComponent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [outflows, setOutflows] = useLocalStorage<Outflow[]>("outflows", []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(outflows.length / itemsPerPage);
+  const starIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = starIndex + itemsPerPage;
+  const currentOutflows = outflows.slice(starIndex, endIndex);
+
   const category: categoryOptions[] = [
     { name: "groceries", value: "Groceries" },
     { name: "utilities", value: "Utilities" },
@@ -50,8 +58,13 @@ function OutflowComponent() {
       </div>
       <div>
         {outflows.length === 0 && <p>No outflows yet</p>}
-        <TableComponent data={outflows} />
+        <TableComponent data={currentOutflows} />
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 }
