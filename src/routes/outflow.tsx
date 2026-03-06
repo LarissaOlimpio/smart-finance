@@ -23,7 +23,7 @@ function OutflowComponent() {
   };
   return (
     <div className="flex-1 p-4 md:p-8 bg-gray-50 min-h-screen">
-      <div className="flex items-center justify-between mb-6 ">
+      <div className="flex flex-col md:flex-row items-center justify-between mb-6 ">
         <h1 className="text-2xl font-bold">Outflows</h1>
         <Modal
           onSave={handleAddOutflow}
