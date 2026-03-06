@@ -41,10 +41,22 @@ export default function Modal({
     date: "",
     category: "",
   });
+  const handleChange = (
+    name: keyof typeof formData,
+    value: string | number,
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const cleanFormData = () => {
+    setFormData({ title: "", amount: 0, date: "", category: "" });
+  };
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSave(formData);
-    setFormData({ title: "", amount: 0, date: "", category: "" });
+    cleanFormData();
     setIsOpen(false);
   };
   return (
@@ -70,15 +82,11 @@ export default function Modal({
                 Title
               </Text>
               <TextField.Root
-                defaultValue="title"
+                required
+                type="text"
                 placeholder="title"
                 value={formData.title}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    title: e.target.value,
-                  }))
-                }
+                onChange={(e) => handleChange("title", e.target.value)}
               />
             </label>
             <label>
@@ -86,15 +94,12 @@ export default function Modal({
                 Amount
               </Text>
               <TextField.Root
+                required
                 type="number"
-                defaultValue="$0.00"
                 placeholder="$0.00"
                 value={formData.amount}
                 onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    amount: parseFloat(e.target.value),
-                  }))
+                  handleChange("amount", parseFloat(e.target.value))
                 }
               />
             </label>
@@ -103,16 +108,11 @@ export default function Modal({
                 Date
               </Text>
               <TextField.Root
+                required
                 type="date"
-                defaultValue=""
                 placeholder="Select a date"
                 value={formData.date}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    date: e.target.value,
-                  }))
-                }
+                onChange={(e) => handleChange("date", e.target.value)}
               />
             </label>
             <label>
@@ -122,12 +122,7 @@ export default function Modal({
               <Select.Root
                 defaultValue="other"
                 value={formData.category}
-                onValueChange={(value) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    category: value,
-                  }))
-                }
+                onValueChange={(value) => handleChange("category", value)}
               >
                 <Select.Trigger />
                 <Select.Content>
@@ -148,18 +143,15 @@ export default function Modal({
               <Button
                 variant="soft"
                 color="gray"
-                onClick={() =>
-                  setFormData({ title: "", amount: 0, date: "", category: "" })
-                }
+                onClick={() => cleanFormData()}
               >
                 Cancel
               </Button>
             </Dialog.Close>
-            <Dialog.Close>
-              <Button color="green" type="submit">
-                Save
-              </Button>
-            </Dialog.Close>
+
+            <Button color="green" type="submit">
+              Save
+            </Button>
           </Flex>
         </form>
       </Dialog.Content>
