@@ -22,7 +22,6 @@ export function Sidebar() {
   ];
   const mapMenuItems = menuItems.map((item) => (
     <Link
-      onClick={() => setIsOpen((prev) => !prev)}
       key={item.name}
       to={item.path}
       className="flex items-center gap-5 cursor-pointer hover:bg-gray-700 rounded px-5 py-2"
