@@ -14,6 +14,8 @@ interface MenuItem {
 }
 export function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
+  const toggleModal = () => setIsOpen((prev) => !prev);
+  const closeModal = () => setIsOpen(false);
   const menuItems: MenuItem[] = [
     { name: "Dashboard", path: "/dashboard", icon: <RxDashboard /> },
     { name: "Inflow", path: "/inflow", icon: <GrMoney /> },
@@ -24,7 +26,7 @@ export function Sidebar() {
     <Link
       key={item.name}
       to={item.path}
-      onClick={() => setIsOpen(false)}
+      onClick={closeModal}
       className="flex items-center gap-5 cursor-pointer hover:bg-gray-700 rounded px-5 py-2"
     >
       <Tooltip content={!isOpen ? item.name : undefined}>
@@ -38,14 +40,14 @@ export function Sidebar() {
     <>
       <button
         className="md:hidden fixed top-4 left-4 z-50 p-3 text-black "
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={toggleModal}
       >
         <FaBars />
       </button>
       {isOpen && (
         <div
           className="md:hidden fixed inset-0 bg-black/50 z-40"
-          onClick={() => setIsOpen(false)}
+          onClick={closeModal}
         />
       )}
       <motion.div
@@ -62,7 +64,7 @@ export function Sidebar() {
         {" "}
         <button
           className="hidden md:block mb-10 p-5 w-fit"
-          onClick={() => setIsOpen((prev) => !prev)}
+          onClick={toggleModal}
         >
           <FaBars />
         </button>
