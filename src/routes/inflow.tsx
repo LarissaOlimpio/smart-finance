@@ -9,6 +9,11 @@ interface Inflow {
   title: string;
   amount: number;
   date: string;
+  category: string;
+}
+interface categoryOptions {
+  name: string;
+  value: string;
 }
 
 export const Route = createFileRoute("/inflow")({
@@ -18,6 +23,13 @@ export const Route = createFileRoute("/inflow")({
 function InflowComponent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inflows, setInflows] = useLocalStorage<Inflow[]>("inflows", []);
+  const category: categoryOptions[] = [
+    { name: "salary", value: "Salary" },
+    { name: "vacation pay", value: "Vacation Pay" },
+    { name: "profit sharing", value: "Profit Sharing" },
+    { name: "bonus", value: "Bonus" },
+    { name: "other", value: "Other" },
+  ];
   const handleAddInflow = (newInflow: Omit<Inflow, "id">) => {
     const inflowWithId = { ...newInflow, id: crypto.randomUUID() };
     setInflows((prev) => [...prev, inflowWithId]);
@@ -31,6 +43,7 @@ function InflowComponent() {
           onSave={handleAddInflow}
           isOpen={isModalOpen}
           setIsOpen={setIsModalOpen}
+          categoryOptions={category}
           triggerText="Add Inflow"
           title="Add New Inflow"
           description="Fill in the details for the new inflow."

@@ -4,6 +4,7 @@ import {
   Flex,
   TextField,
   Text,
+  Select,
   type ButtonProps,
 } from "@radix-ui/themes";
 import { useState } from "react";
@@ -15,8 +16,14 @@ interface ModalProps {
   description: string;
   colorButton: ButtonProps["color"];
   isOpen: boolean;
+  categoryOptions: { name: string; value: string }[];
   setIsOpen: (isOpen: boolean) => void;
-  onSave: (data: { title: string; amount: number; date: string }) => void;
+  onSave: (data: {
+    title: string;
+    amount: number;
+    date: string;
+    category: string;
+  }) => void;
 }
 export default function Modal({
   triggerText,
@@ -24,6 +31,7 @@ export default function Modal({
   description,
   colorButton,
   isOpen,
+  categoryOptions,
   setIsOpen,
   onSave,
 }: ModalProps) {
@@ -31,11 +39,12 @@ export default function Modal({
     title: "",
     amount: 0,
     date: "",
+    category: "",
   });
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSave(formData);
-    setFormData({ title: "", amount: 0, date: "" });
+    setFormData({ title: "", amount: 0, date: "", category: "" });
     setIsOpen(false);
   };
   return (
@@ -106,6 +115,32 @@ export default function Modal({
                 }
               />
             </label>
+            <label>
+              <Text as="div" size="2" mb="1" weight="bold">
+                Category
+              </Text>
+              <Select.Root
+                defaultValue="other"
+                value={formData.category}
+                onValueChange={(value) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    category: value,
+                  }))
+                }
+              >
+                <Select.Trigger />
+                <Select.Content>
+                  <Select.Group>
+                    {categoryOptions.map((option) => (
+                      <Select.Item key={option.value} value={option.value}>
+                        {option.name}
+                      </Select.Item>
+                    ))}
+                  </Select.Group>
+                </Select.Content>
+              </Select.Root>
+            </label>
           </Flex>
 
           <Flex gap="3" mt="4" justify="end">
@@ -113,7 +148,9 @@ export default function Modal({
               <Button
                 variant="soft"
                 color="gray"
-                onClick={() => setFormData({ title: "", amount: 0, date: "" })}
+                onClick={() =>
+                  setFormData({ title: "", amount: 0, date: "", category: "" })
+                }
               >
                 Cancel
               </Button>

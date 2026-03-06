@@ -9,6 +9,11 @@ interface Outflow {
   title: string;
   amount: number;
   date: string;
+  category: string;
+}
+interface categoryOptions {
+  name: string;
+  value: string;
 }
 export const Route = createFileRoute("/outflow")({
   component: OutflowComponent,
@@ -17,6 +22,13 @@ export const Route = createFileRoute("/outflow")({
 function OutflowComponent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [outflows, setOutflows] = useLocalStorage<Outflow[]>("outflows", []);
+  const category: categoryOptions[] = [
+    { name: "groceries", value: "Groceries" },
+    { name: "utilities", value: "Utilities" },
+    { name: "entertainment", value: "Entertainment" },
+    { name: "transportation", value: "Transportation" },
+    { name: "other", value: "Other" },
+  ];
   const handleAddOutflow = (newOutflow: Omit<Outflow, "id">) => {
     const outflowWithId = { ...newOutflow, id: crypto.randomUUID() };
     setOutflows((prev) => [...prev, outflowWithId]);
@@ -29,6 +41,7 @@ function OutflowComponent() {
           onSave={handleAddOutflow}
           isOpen={isModalOpen}
           setIsOpen={setIsModalOpen}
+          categoryOptions={category}
           triggerText="Add Outflow"
           title="Add New Outflow"
           description="Fill in the details for the new outflow."

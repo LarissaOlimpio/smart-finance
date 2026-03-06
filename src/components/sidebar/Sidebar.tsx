@@ -16,6 +16,7 @@ export function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleModal = () => setIsOpen((prev) => !prev);
   const closeModal = () => setIsOpen(false);
+
   const menuItems: MenuItem[] = [
     { name: "Dashboard", path: "/dashboard", icon: <RxDashboard /> },
     { name: "Inflow", path: "/inflow", icon: <GrMoney /> },
