@@ -10,6 +10,15 @@ import {
 import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
 
+interface FormData {
+  title: string;
+  amount: number;
+  date: string;
+  category: string;
+}
+interface EditModalProps extends FormData {
+  id: string;
+}
 interface ModalProps {
   triggerText: string;
   title: string;
@@ -18,12 +27,8 @@ interface ModalProps {
   isOpen: boolean;
   categoryOptions: { name: string; value: string }[];
   setIsOpen: (isOpen: boolean) => void;
-  onSave: (data: {
-    title: string;
-    amount: number;
-    date: string;
-    category: string;
-  }) => void;
+  onSave: (data: FormData) => void;
+  itensToEdit: EditModalProps | null;
 }
 export default function Modal({
   triggerText,
@@ -31,15 +36,16 @@ export default function Modal({
   description,
   colorButton,
   isOpen,
+  itensToEdit,
   categoryOptions,
   setIsOpen,
   onSave,
 }: ModalProps) {
   const [formData, setFormData] = useState({
-    title: "",
-    amount: 0,
-    date: "",
-    category: "",
+    title: itensToEdit?.title ?? "",
+    amount: itensToEdit?.amount ?? 0,
+    date: itensToEdit?.date ?? "",
+    category: itensToEdit?.category ?? "",
   });
   const handleChange = (
     name: keyof typeof formData,

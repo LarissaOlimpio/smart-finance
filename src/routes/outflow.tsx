@@ -24,6 +24,7 @@ function OutflowComponent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [outflows, setOutflows] = useLocalStorage<Outflow[]>("outflows", []);
   const [currentPage, setCurrentPage] = useState(1);
+  const [itensToEdit, setItensToEdit] = useState<Outflow | null>(null);
   const itemsPerPage = 10;
   const totalPages = Math.ceil(outflows.length / itemsPerPage);
   const starIndex = (currentPage - 1) * itemsPerPage;
@@ -37,18 +38,44 @@ function OutflowComponent() {
     { name: "transportation", value: "Transportation" },
     { name: "other", value: "Other" },
   ];
-  const handleAddOutflow = (newOutflow: Omit<Outflow, "id">) => {
-    const outflowWithId = { ...newOutflow, id: crypto.randomUUID() };
-    setOutflows((prev) => [...prev, outflowWithId]);
+  const handleSaveModal = (dataoutflow: Omit<Outflow, "id">) => {
+    if (itensToEdit) {
+      setOutflows((prev) =>
+        prev.map((outflow) =>
+          outflow.id === itensToEdit.id
+            ? { ...dataoutflow, id: itensToEdit.id }
+            : outflow,
+        ),
+      );
+    } else {
+      const outflowWithId = { ...dataoutflow, id: crypto.randomUUID() };
+      setOutflows((prev) => [...prev, outflowWithId]);
+    }
+    setIsModalOpen(false);
+    setItensToEdit(null);
+  };
+  const handleDeleteOutflow = (id: string) => {
+    setOutflows((prev) => prev.filter((outflow) => outflow.id !== id));
+  };
+  const handleEditOutflow = (updatedOutflow: Outflow) => {
+    setIsModalOpen(true);
+    setItensToEdit(updatedOutflow);
   };
   return (
     <div className="flex-1 p-4 md:p-8 bg-gray-50 min-h-screen">
       <div className="flex flex-col md:flex-row items-center justify-between mb-6 ">
         <h1 className="text-2xl font-bold">Outflows</h1>
         <Modal
-          onSave={handleAddOutflow}
+          key={itensToEdit?.id ?? "new"}
+          onSave={handleSaveModal}
           isOpen={isModalOpen}
-          setIsOpen={setIsModalOpen}
+          setIsOpen={(open) => {
+            setIsModalOpen(open);
+            if (!open) {
+              setItensToEdit(null);
+            }
+          }}
+          itensToEdit={itensToEdit}
           categoryOptions={category}
           triggerText="Add Outflow"
           title="Add New Outflow"
@@ -58,7 +85,11 @@ function OutflowComponent() {
       </div>
       <div>
         {outflows.length === 0 && <p>No outflows yet</p>}
-        <TableComponent data={currentOutflows} />
+        <TableComponent
+          data={currentOutflows}
+          onDelete={handleDeleteOutflow}
+          onEdit={handleEditOutflow}
+        />
       </div>
       <Pagination
         currentPage={currentPage}

@@ -1,4 +1,5 @@
-import { Table } from "@radix-ui/themes";
+import { Table, IconButton, Flex } from "@radix-ui/themes";
+import { LuPencilLine, LuTrash2 } from "react-icons/lu";
 
 interface TableItem {
   id: string;
@@ -10,8 +11,14 @@ interface TableItem {
 
 interface TableComponentProps {
   data: TableItem[];
+  onEdit: (item: TableItem) => void;
+  onDelete: (id: string) => void;
 }
-export default function TableComponent({ data }: TableComponentProps) {
+export default function TableComponent({
+  data,
+  onEdit,
+  onDelete,
+}: TableComponentProps) {
   return (
     <Table.Root>
       <Table.Header className="hidden md:table-header-group">
@@ -20,6 +27,7 @@ export default function TableComponent({ data }: TableComponentProps) {
           <Table.ColumnHeaderCell>Date</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Category</Table.ColumnHeaderCell>
           <Table.ColumnHeaderCell>Amount</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Edit/Delete</Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
 
@@ -43,6 +51,24 @@ export default function TableComponent({ data }: TableComponentProps) {
               {item.amount.toLocaleString("en-US", {
                 minimumFractionDigits: 2,
               })}
+            </Table.Cell>
+            <Table.Cell className=" block md:table-cell md:align-middle">
+              <Flex gap="2">
+                <IconButton
+                  variant="soft"
+                  color="gray"
+                  onClick={() => onEdit(item)}
+                >
+                  <LuPencilLine size="18" />
+                </IconButton>
+                <IconButton
+                  variant="soft"
+                  color="red"
+                  onClick={() => onDelete(item.id)}
+                >
+                  <LuTrash2 size="18" />
+                </IconButton>
+              </Flex>
             </Table.Cell>
           </Table.Row>
         ))}
