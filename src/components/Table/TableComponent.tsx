@@ -1,4 +1,11 @@
-import { Table, IconButton, Flex } from "@radix-ui/themes";
+import {
+  Table,
+  IconButton,
+  Flex,
+  Text,
+  Badge,
+  type BadgeProps,
+} from "@radix-ui/themes";
 import { LuPencilLine, LuTrash2 } from "react-icons/lu";
 
 interface TableItem {
@@ -10,69 +17,88 @@ interface TableItem {
 }
 
 interface TableComponentProps {
+  badgeColor: BadgeProps["color"];
   data: TableItem[];
   onEdit: (item: TableItem) => void;
   onDelete: (id: string) => void;
 }
 export default function TableComponent({
+  badgeColor,
   data,
   onEdit,
   onDelete,
 }: TableComponentProps) {
+  const formatAmount = (amount: number) =>
+    amount.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+    });
+  const ActionButtons = ({ item }: { item: TableItem }) => (
+    <Flex gap="3">
+      <IconButton variant="ghost" color="gray" onClick={() => onEdit(item)}>
+        <LuPencilLine size="18" />
+      </IconButton>
+      <IconButton variant="ghost" color="red" onClick={() => onDelete(item.id)}>
+        <LuTrash2 size="18" />
+      </IconButton>
+    </Flex>
+  );
   return (
-    <Table.Root>
-      <Table.Header className="hidden md:table-header-group">
-        <Table.Row>
-          <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Date</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Category</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Amount</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Edit/Delete</Table.ColumnHeaderCell>
-        </Table.Row>
-      </Table.Header>
-
-      <Table.Body className="block md:table-row-group">
+    <>
+      <div className="flex flex-col gap-3 p-3 md:hidden">
         {data.map((item) => (
-          <Table.Row
+          <div
             key={item.id}
-            className="flex flex-col md:table-row mb-4 md:mb-0 p-4 md:p-0 bg-white md:bg-transparent rounded-lg border border-gray-200 md:border-none shadow-sm md:shadow-none"
+            className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4"
           >
-            <Table.RowHeaderCell className="block md:table-cell md:align-middle">
+            <Text as="p" size="4" weight="bold" className="text-gray-900 mb-1">
               {item.title}
-            </Table.RowHeaderCell>
-            <Table.Cell className="block md:table-cell md:align-middle">
-              {item.date}
-            </Table.Cell>
-            <Table.Cell className="block md:table-cell md:align-middle">
-              {item.category}
-            </Table.Cell>
-            <Table.Cell className="block md:table-cell md:align-middle">
-              ${" "}
-              {item.amount.toLocaleString("en-US", {
-                minimumFractionDigits: 2,
-              })}
-            </Table.Cell>
-            <Table.Cell className=" block md:table-cell md:align-middle">
-              <Flex gap="2">
-                <IconButton
-                  variant="soft"
-                  color="gray"
-                  onClick={() => onEdit(item)}
-                >
-                  <LuPencilLine size="18" />
-                </IconButton>
-                <IconButton
-                  variant="soft"
-                  color="red"
-                  onClick={() => onDelete(item.id)}
-                >
-                  <LuTrash2 size="18" />
-                </IconButton>
-              </Flex>
-            </Table.Cell>
-          </Table.Row>
+            </Text>
+
+            <Flex align="center" gap="2" mb="3">
+              <Text size="2" color="gray">
+                {item.date}
+              </Text>
+              <Text size="2" color="gray">
+                |
+              </Text>
+              <Badge color={badgeColor} variant="soft" radius="full">
+                {item.category}
+              </Badge>
+            </Flex>
+
+            <Text as="p" size="4" weight="bold">
+              $ {formatAmount(item.amount)}
+            </Text>
+            <Flex justify="end" mb="2" mt="3">
+              <ActionButtons item={item} />
+            </Flex>
+          </div>
         ))}
-      </Table.Body>
-    </Table.Root>
+      </div>
+      <Table.Root className="hidden md:table w-full">
+        <Table.Header>
+          <Table.Row>
+            <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Date</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Category</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Amount</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Edit/Delete</Table.ColumnHeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {data.map((item) => (
+            <Table.Row key={item.id}>
+              <Table.RowHeaderCell>{item.title}</Table.RowHeaderCell>
+              <Table.Cell>{item.date}</Table.Cell>
+              <Table.Cell>{item.category}</Table.Cell>
+              <Table.Cell>$ {formatAmount(item.amount)}</Table.Cell>
+              <Table.Cell>
+                <ActionButtons item={item} />
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table.Root>
+    </>
   );
 }

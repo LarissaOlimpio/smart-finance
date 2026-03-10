@@ -86,6 +86,7 @@ function OutflowComponent() {
       <div>
         {outflows.length === 0 && <p>No outflows yet</p>}
         <TableComponent
+          badgeColor="orange"
           data={currentOutflows}
           onDelete={handleDeleteOutflow}
           onEdit={handleEditOutflow}

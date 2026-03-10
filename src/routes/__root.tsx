@@ -5,7 +5,7 @@ export const Route = createRootRoute({
   component: () => (
     <div className="flex">
       <Sidebar></Sidebar>
-      <main className="flex-1">
+      <main className="flex-1 min-w-0">
         <Outlet />
       </main>
     </div>

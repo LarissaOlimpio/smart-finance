@@ -87,6 +87,7 @@ function InflowComponent() {
       <div>
         {inflows.length === 0 && <p>No inflows yet</p>}
         <TableComponent
+          badgeColor="green"
           data={currentInflows}
           onDelete={handleDeleteModal}
           onEdit={handleOpenEditModal}
