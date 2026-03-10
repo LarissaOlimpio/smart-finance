@@ -7,19 +7,12 @@ import {
   type BadgeProps,
 } from "@radix-ui/themes";
 import { LuPencilLine, LuTrash2 } from "react-icons/lu";
-
-interface TableItem {
-  id: string;
-  title: string;
-  date: string;
-  amount: number;
-  category: string;
-}
+import type { FinanceItem } from "../../types/finance";
 
 interface TableComponentProps {
   badgeColor: BadgeProps["color"];
-  data: TableItem[];
-  onEdit: (item: TableItem) => void;
+  data: FinanceItem[];
+  onEdit: (item: FinanceItem) => void;
   onDelete: (id: string) => void;
 }
 export default function TableComponent({
@@ -32,7 +25,7 @@ export default function TableComponent({
     amount.toLocaleString("en-US", {
       minimumFractionDigits: 2,
     });
-  const ActionButtons = ({ item }: { item: TableItem }) => (
+  const ActionButtons = ({ item }: { item: FinanceItem }) => (
     <Flex gap="3">
       <IconButton variant="ghost" color="gray" onClick={() => onEdit(item)}>
         <LuPencilLine size="18" />

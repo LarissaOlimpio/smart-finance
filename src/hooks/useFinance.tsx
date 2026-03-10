@@ -1,16 +1,6 @@
 import { useState } from "react";
 import { useLocalStorage } from "./useLocalStorage";
-interface FinanceItem {
-  id: string;
-  title: string;
-  amount: number;
-  date: string;
-  category: string;
-}
-export interface categoryOptions {
-  name: string;
-  value: string;
-}
+import type { FinanceFormData, FinanceItem } from "../types/finance";
 export function useFinance(storageKey: string) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [financeItems, setFinanceItems] = useLocalStorage<FinanceItem[]>(
@@ -25,7 +15,7 @@ export function useFinance(storageKey: string) {
   const endIndex = starIndex + itemsPerPage;
   const currentFinanceItems = financeItems.slice(starIndex, endIndex);
 
-  const handleSave = (data: Omit<FinanceItem, "id">) => {
+  const handleSave = (data: FinanceFormData) => {
     if (itensToEdit) {
       setFinanceItems((prev) =>
         prev.map((item) =>

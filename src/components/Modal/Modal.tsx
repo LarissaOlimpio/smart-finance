@@ -9,16 +9,8 @@ import {
 } from "@radix-ui/themes";
 import { useState } from "react";
 import { FiPlus } from "react-icons/fi";
+import type { FinanceItem, FinanceFormData } from "../../types/finance";
 
-interface FormData {
-  title: string;
-  amount: number;
-  date: string;
-  category: string;
-}
-interface EditModalProps extends FormData {
-  id: string;
-}
 interface ModalProps {
   triggerText: string;
   title: string;
@@ -27,8 +19,8 @@ interface ModalProps {
   isOpen: boolean;
   categoryOptions: { name: string; value: string }[];
   setIsOpen: (isOpen: boolean) => void;
-  onSave: (data: FormData) => void;
-  itensToEdit: EditModalProps | null;
+  onSave: (data: FinanceFormData) => void;
+  itensToEdit: FinanceItem | null;
 }
 export default function Modal({
   triggerText,
