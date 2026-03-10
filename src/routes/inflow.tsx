@@ -20,8 +20,8 @@ function InflowComponent() {
   ];
 
   return (
-    <div className="flex-1 p-4 md:p-8 bg-gray-50 min-h-screen">
-      <div className="flex flex-col md:flex-row items-center justify-between mb-6 ">
+    <div className="min-h-screen flex-1 bg-gray-50 p-4 md:p-8">
+      <div className="mb-6 flex flex-col items-center justify-between md:flex-row">
         <h1 className="text-2xl font-bold">Inflows</h1>
         <Modal
           key={finance.itensToEdit?.id ?? "new"}

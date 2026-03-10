@@ -28,7 +28,7 @@ export default function Sidebar() {
       key={item.name}
       to={item.path}
       onClick={closeModal}
-      className="flex items-center gap-5 cursor-pointer hover:bg-gray-700 rounded px-5 py-2"
+      className="flex cursor-pointer items-center gap-5 rounded px-5 py-2 hover:bg-gray-700"
     >
       <Tooltip content={!isOpen ? item.name : undefined}>
         <span>{item.icon}</span>
@@ -40,14 +40,14 @@ export default function Sidebar() {
   return (
     <>
       <button
-        className="md:hidden absolute top-4 left-4 z-50 p-3 text-black "
+        className="absolute top-4 left-4 z-50 p-3 text-black md:hidden"
         onClick={toggleModal}
       >
         <FaBars />
       </button>
       {isOpen && (
         <div
-          className="md:hidden fixed inset-0 bg-black/50 z-40"
+          className="fixed inset-0 z-40 bg-black/50 md:hidden"
           onClick={closeModal}
         />
       )}
@@ -55,21 +55,16 @@ export default function Sidebar() {
         initial={{ width: 60 }}
         animate={{ width: isOpen ? 240 : 60 }}
         transition={{ duration: 0.4 }}
-        className={`
-          fixed top-0 left-0 h-screen bg-gray-800 text-white z-50 flex flex-col overflow-hidden
-          transition-transform duration-300 ease-in-out
-          md:relative md:translate-x-0
-          ${isOpen ? "translate-x-0" : "-translate-x-full"}
-        `}
+        className={`fixed top-0 left-0 z-50 flex h-screen flex-col overflow-hidden bg-gray-800 text-white transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"} `}
       >
         {" "}
         <button
-          className="hidden md:block mb-10 p-5 w-fit"
+          className="mb-10 hidden w-fit p-5 md:block"
           onClick={toggleModal}
         >
           <FaBars />
         </button>
-        <nav className="flex flex-col gap-8 mt-16 md:mt-0">{mapMenuItems}</nav>
+        <nav className="mt-16 flex flex-col gap-8 md:mt-0">{mapMenuItems}</nav>
       </motion.div>
     </>
   );

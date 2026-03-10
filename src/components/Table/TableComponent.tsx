@@ -48,9 +48,9 @@ export default function TableComponent({
         {data.map((item) => (
           <div
             key={item.id}
-            className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4"
+            className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm"
           >
-            <Text as="p" size="4" weight="bold" className="text-gray-900 mb-1">
+            <Text as="p" size="4" weight="bold" className="mb-1 text-gray-900">
               {item.title}
             </Text>
 
@@ -75,7 +75,7 @@ export default function TableComponent({
           </div>
         ))}
       </div>
-      <Table.Root className="hidden md:table w-full">
+      <Table.Root className="hidden w-full md:table">
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
