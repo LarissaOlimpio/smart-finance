@@ -43,49 +43,43 @@ export default function Pagination({
   const pages = getPageNumbers();
 
   return (
-    <Flex align="center" justify="between" mt="4" className="w-full">
-      <Text size="2" color="gray">
-        Page <strong>{currentPage}</strong> of <strong>{totalPages}</strong>
-      </Text>
+    <Flex justify="center" gap="2" align="center" mt="4">
+      <IconButton
+        variant="ghost"
+        color="gray"
+        disabled={currentPage === 1}
+        onClick={() => onPageChange(currentPage - 1)}
+      >
+        <FiChevronLeft size={18} />
+      </IconButton>
 
-      <Flex gap="2" align="center">
-        <IconButton
-          variant="ghost"
-          color="gray"
-          disabled={currentPage === 1}
-          onClick={() => onPageChange(currentPage - 1)}
-        >
-          <FiChevronLeft size={18} />
-        </IconButton>
-
-        <Flex gap="1" display={{ initial: "none", sm: "flex" }}>
-          {pages.map((page, index) =>
-            page === "..." ? (
-              <Text key={index} size="2" color="gray">
-                ...
-              </Text>
-            ) : (
-              <Button
-                key={index}
-                radius="large"
-                variant={currentPage === page ? "solid" : "outline"}
-                color="gray"
-                onClick={() => onPageChange(Number(page))}
-              >
-                {page}
-              </Button>
-            ),
-          )}
-        </Flex>
-        <IconButton
-          variant="ghost"
-          color="gray"
-          disabled={currentPage === totalPages}
-          onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
-        >
-          <FiChevronRight size={18} />
-        </IconButton>
+      <Flex gap="1" display={{ initial: "none", sm: "flex" }}>
+        {pages.map((page, index) =>
+          page === "..." ? (
+            <Text key={index} size="2" color="gray">
+              ...
+            </Text>
+          ) : (
+            <Button
+              key={index}
+              radius="large"
+              variant={currentPage === page ? "solid" : "outline"}
+              color="gray"
+              onClick={() => onPageChange(Number(page))}
+            >
+              {page}
+            </Button>
+          ),
+        )}
       </Flex>
+      <IconButton
+        variant="ghost"
+        color="gray"
+        disabled={currentPage === totalPages}
+        onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
+      >
+        <FiChevronRight size={18} />
+      </IconButton>
     </Flex>
   );
 }
