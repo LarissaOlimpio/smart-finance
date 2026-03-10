@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import Modal from "../components/Modal/Modal";
-import { useFinance, type categoryOptions } from "../hooks/useFinance";
+import { useFinance } from "../hooks/useFinance";
+import type { categoryOptions } from "../types/finance";
 import TableComponent from "../components/Table/TableComponent";
 import Pagination from "../components/Pagination/Pagination";
 
@@ -22,7 +23,11 @@ function InflowComponent() {
   return (
     <div className="min-h-screen flex-1 bg-gray-50 p-4 md:p-8">
       <div className="mb-6 flex flex-col items-center justify-between md:flex-row">
-        <h1 className="text-2xl font-bold">Inflows</h1>
+        <div>
+          <h1 className="text-2xl font-bold">Inflows</h1>
+          <p>Total: ${finance.totalValue}</p>
+        </div>
+
         <Modal
           key={finance.itensToEdit?.id ?? "new"}
           onSave={finance.handleSave}

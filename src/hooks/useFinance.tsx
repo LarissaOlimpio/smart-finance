@@ -14,6 +14,9 @@ export function useFinance(storageKey: string) {
   const starIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = starIndex + itemsPerPage;
   const currentFinanceItems = financeItems.slice(starIndex, endIndex);
+  const totalValue = financeItems
+    .reduce((total, item) => total + item.amount, 0)
+    .toFixed(2);
 
   const handleSave = (data: FinanceFormData) => {
     if (itensToEdit) {
@@ -49,5 +52,6 @@ export function useFinance(storageKey: string) {
     handleSave,
     handleDelete,
     handleEdit,
+    totalValue,
   };
 }
