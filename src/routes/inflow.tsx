@@ -37,7 +37,10 @@ function InflowComponent() {
     );
   });
 
-  const totalPages = Math.max(1, Math.ceil(filteredItems.length / itemsPerPage));
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredItems.length / itemsPerPage),
+  );
 
   useEffect(() => {
     if (finance.currentPage > totalPages) {
@@ -46,19 +49,21 @@ function InflowComponent() {
   }, [finance.currentPage, finance.setCurrentPage, totalPages]);
 
   const startIndex = (finance.currentPage - 1) * itemsPerPage;
-  const currentItems = filteredItems.slice(startIndex, startIndex + itemsPerPage);
+  const currentItems = filteredItems.slice(
+    startIndex,
+    startIndex + itemsPerPage,
+  );
 
   return (
     <div className="min-h-screen flex-1 bg-gray-50 p-4 md:p-8">
       <div className="mb-6 flex flex-col items-center gap-4 md:flex-row md:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Inflows</h1>
+        <div className="flex flex-1 flex-col items-center gap-5 sm:flex-row sm:items-center sm:items-start">
+          <h1 className="text-3xl font-bold text-gray-900">Inflows</h1>
+          <SearchItem value={searchTerm} onChange={setSearchTerm} />
         </div>
 
-        <SearchItem value={searchTerm} onChange={setSearchTerm} />
-
-        <div className="bg-gray-100 p-2 rounded-lg border border-gray-300 text-gray-600">
-          <p>Total Inflows: ${finance.totalValue}</p>
+        <div className="rounded-sm bg-gray-200 px-4 py-1.5 text-sm font-medium whitespace-nowrap text-gray-700">
+          Total Inflows: ${finance.totalValue}
         </div>
 
         <Modal

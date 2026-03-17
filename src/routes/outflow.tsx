@@ -36,7 +36,10 @@ function OutflowComponent() {
     );
   });
 
-  const totalPages = Math.max(1, Math.ceil(filteredItems.length / itemsPerPage));
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredItems.length / itemsPerPage),
+  );
 
   useEffect(() => {
     if (finance.currentPage > totalPages) {
@@ -45,38 +48,42 @@ function OutflowComponent() {
   }, [finance.currentPage, finance.setCurrentPage, totalPages]);
 
   const startIndex = (finance.currentPage - 1) * itemsPerPage;
-  const currentItems = filteredItems.slice(startIndex, startIndex + itemsPerPage);
+  const currentItems = filteredItems.slice(
+    startIndex,
+    startIndex + itemsPerPage,
+  );
 
   return (
     <div className="min-h-screen flex-1 bg-gray-50 p-4 md:p-8">
       <div className="mb-6 flex flex-col items-center gap-4 md:flex-row md:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Outflows</h1>
+        <div className="flex flex-1 flex-col items-center gap-5 sm:flex-row sm:items-center sm:items-start">
+          <h1 className="text-3xl font-bold text-gray-900">Outflows</h1>
+          <SearchItem value={searchTerm} onChange={setSearchTerm} />
         </div>
 
-        <SearchItem value={searchTerm} onChange={setSearchTerm} />
+        <div className="flex flex-col items-center gap-3 sm:flex-row">
+          <div className="rounded-sm bg-gray-200 px-4 py-1.5 text-sm font-medium whitespace-nowrap text-gray-700">
+            Total Outflows: ${finance.totalValue}
+          </div>
 
-        <div className="bg-gray-100 p-2 rounded-lg border border-gray-300 text-gray-600">
-          <p>Total Outflows: ${finance.totalValue}</p>
+          <Modal
+            key={finance.itensToEdit?.id ?? "new"}
+            onSave={finance.handleSave}
+            isOpen={finance.isModalOpen}
+            setIsOpen={(open) => {
+              finance.setIsModalOpen(open);
+              if (!open) {
+                finance.setItensToEdit(null);
+              }
+            }}
+            itensToEdit={finance.itensToEdit}
+            categoryOptions={category}
+            triggerText="Add Outflow"
+            title="Add New Outflow"
+            description="Fill in the details for the new outflow."
+            colorButton="orange"
+          />
         </div>
-
-        <Modal
-          key={finance.itensToEdit?.id ?? "new"}
-          onSave={finance.handleSave}
-          isOpen={finance.isModalOpen}
-          setIsOpen={(open) => {
-            finance.setIsModalOpen(open);
-            if (!open) {
-              finance.setItensToEdit(null);
-            }
-          }}
-          itensToEdit={finance.itensToEdit}
-          categoryOptions={category}
-          triggerText="Add Outflow"
-          title="Add New Outflow"
-          description="Fill in the details for the new outflow."
-          colorButton="orange"
-        />
       </div>
       <div>
         {finance.financeItems.length === 0 && <p>No outflows yet</p>}
