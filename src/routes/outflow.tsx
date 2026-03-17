@@ -56,7 +56,7 @@ function OutflowComponent() {
 
         <SearchItem value={searchTerm} onChange={setSearchTerm} />
 
-        <div>
+        <div className="bg-gray-100 p-2 rounded-lg border border-gray-300 text-gray-600">
           <p>Total Outflows: ${finance.totalValue}</p>
         </div>
 

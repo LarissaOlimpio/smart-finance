@@ -28,7 +28,7 @@ const SearchItem = ({
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
-        className="w-full rounded-lg border border-gray-300 bg-white py-2 pl-9 pr-3 text-sm shadow-sm focus:border-gray-600 focus:outline-none  focus:ring-gray-300"
+        className="w-full rounded-lg border border-gray-300 bg-white py-3 pl-9 pr-3 text-sm shadow-sm focus:border-gray-600 focus:outline-none  focus:ring-gray-300"
       />
     </div>
   );

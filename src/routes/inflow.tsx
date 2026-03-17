@@ -57,8 +57,8 @@ function InflowComponent() {
 
         <SearchItem value={searchTerm} onChange={setSearchTerm} />
 
-        <div>
-          <p>Total: ${finance.totalValue}</p>
+        <div className="bg-gray-100 p-2 rounded-lg border border-gray-300 text-gray-600">
+          <p>Total Inflows: ${finance.totalValue}</p>
         </div>
 
         <Modal
