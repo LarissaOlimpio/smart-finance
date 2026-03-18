@@ -5,7 +5,7 @@ import type { categoryOptions } from "../types/finance";
 import TableComponent from "../components/Table/TableComponent";
 import Pagination from "../components/Pagination/Pagination";
 import { useState, useEffect } from "react";
-import SearchItem from "../components/SearchItem";
+import SearchItem from "../components/SearchItem/SearchItem";
 
 export const Route = createFileRoute("/inflow")({
   component: InflowComponent,
