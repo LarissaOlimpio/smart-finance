@@ -55,7 +55,7 @@ export default function Sidebar() {
         initial={{ width: 60 }}
         animate={{ width: isOpen ? 240 : 60 }}
         transition={{ duration: 0.4 }}
-        className={`fixed top-0 left-0 z-50 flex h-screen flex-col overflow-hidden bg-gray-800 text-white transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"} `}
+        className={`fixed top-0 left-0 z-50 flex min-h-screen flex-col overflow-hidden bg-gray-800 text-white transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"} `}
       >
         {" "}
         <button

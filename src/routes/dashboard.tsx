@@ -27,12 +27,13 @@ function DashboardComponent() {
     currentBalance,
     savingsRate,
     outflowByCategory,
+    inflowByCategory,
     monthlyTrends,
   } = useDashboardData();
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
-      <header className="flex flex-1 flex-col items-center pb-4 sm:items-center sm:items-start">
+    <div className="flex-1 bg-gray-50 p-4 md:p-8">
+      <header className="mb-8 flex flex-col items-center gap-1 sm:items-start">
         <h1 className="text-2xl font-bold text-slate-900">Welcome, Lari!</h1>
         <p className="text-sm text-slate-500">Finance overview.</p>
       </header>
@@ -64,7 +65,7 @@ function DashboardComponent() {
         />
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="mb-8 grid gap-6 lg:grid-cols-2">
         <ChartContainer title="Outflow by Category">
           <PieChart>
             <Pie
@@ -87,6 +88,29 @@ function DashboardComponent() {
           </PieChart>
         </ChartContainer>
 
+        <ChartContainer title="Inflow by Category">
+          <PieChart>
+            <Pie
+              data={inflowByCategory}
+              dataKey="value"
+              nameKey="name"
+              innerRadius="60%"
+              outerRadius="80%"
+              paddingAngle={5}
+            >
+              {inflowByCategory.map((entry) => (
+                <Cell
+                  key={entry.name}
+                  fill={CATEGORY_COLORS[entry.name] ?? CATEGORY_COLORS.Other}
+                />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </ChartContainer>
+      </div>
+      <div>
         <ChartContainer title="Monthly Trends">
           <BarChart data={monthlyTrends}>
             <CartesianGrid

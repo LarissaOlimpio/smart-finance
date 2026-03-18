@@ -33,10 +33,15 @@ export const calculateFinanceStats = (
         )
       : 0;
 
-  const categoryMap: Record<string, number> = {};
+  const categoryMapOutflow: Record<string, number> = {};
   outflows.forEach((item) => {
     const key = item.category || "Other";
-    categoryMap[key] = (categoryMap[key] ?? 0) + item.amount;
+    categoryMapOutflow[key] = (categoryMapOutflow[key] ?? 0) + item.amount;
+  });
+  const categoryMapInflow: Record<string, number> = {};
+  inflows.forEach((item) => {
+    const key = item.category || "Other";
+    categoryMapInflow[key] = (categoryMapInflow[key] ?? 0) + item.amount;
   });
 
   const trendMap: Record<
@@ -71,10 +76,18 @@ export const calculateFinanceStats = (
     totalOutflows,
     currentBalance,
     savingsRate,
-    outflowByCategory: Object.entries(categoryMap).map(([name, value]) => ({
-      name,
-      value,
-    })),
+    outflowByCategory: Object.entries(categoryMapOutflow).map(
+      ([name, value]) => ({
+        name,
+        value,
+      }),
+    ),
+    inflowByCategory: Object.entries(categoryMapInflow).map(
+      ([name, value]) => ({
+        name,
+        value,
+      }),
+    ),
     monthlyTrends,
   };
 };
