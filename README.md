@@ -36,7 +36,7 @@ Follow these steps to run the project locally:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/LarissaOlimpio/smartFinance.git](https://github.com/LarissaOlimpio/smartFinance.git)
+    git clone [https://github.com/LarissaOlimpio/smartFinance.git](https://github.com/LarissaOlimpio/smart-finance.git)
     ```
 
 2.  **Install dependencies:**
