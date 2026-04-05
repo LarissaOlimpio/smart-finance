@@ -1,7 +1,8 @@
 # 💰 SmartFinance
 
 A fully functional web application for **personal financial control**, allowing users to manage income and expenses while visualizing data through interactive and dynamic dashboards.
-
+> 🚧 **Under Development**  
+> This project is currently under development and new features are continuously being added.
 ## 🛠️ Tech Stack
 
 This project was built using modern web development standards:
