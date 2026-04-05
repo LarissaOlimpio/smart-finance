@@ -1,73 +1,74 @@
-# React + TypeScript + Vite
+# 💰 SmartFinance
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A fully functional web application for **personal financial control**, allowing users to manage income and expenses while visualizing data through interactive and dynamic dashboards.
 
-Currently, two official plugins are available:
+## 🛠️ Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project was built using modern web development standards:
 
-## React Compiler
+* **React** with **TypeScript**: Ensuring robust type safety and a component-based UI.
+* **TanStack Router**: For type-safe routing and seamless navigation with automatic route generation.
+* **Tailwind CSS**: Utility-first CSS for a responsive, clean, and modern design.
+* **Recharts**: High-performance charting library for financial data visualization.
+* **Radix UI**: High-quality primitives for accessible components like Modals and Selects.
+* **Framer Motion**: For smooth transitions and polished UI animations.
+* **date-fns**: Precise and lightweight date manipulation for financial periods.
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## ✨ Key Features
 
-## Expanding the ESLint configuration
+* **Complete Transaction Management**:
+    * **Inflow (Income)**: Register and categorize your earnings.
+    * **Outflow (Expenses)**: Track your spending with detailed descriptions.
+* **Interactive Dashboard**:
+    * **Real-time Metrics**: View total balance, total income, and total expenses at a glance.
+    * **Savings Percentage**: Automatic calculation of how much of your income is being saved.
+    * **Category Breakdown**: Visual charts showing where your money is going.
+    * **Monthly Trends**: Track your financial evolution over time.
+* **Advanced Controls**:
+    * **Data Filtering**: Easily find specific transactions by period or type.
+    * **CRUD Operations**: Full ability to Create, Read, Update, and Delete financial records.
+* **Clean Code Architecture**: Logic separation using **Custom Hooks** for state management and **Utility Functions** for currency and date formatting.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+Follow these steps to run the project locally:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/LarissaOlimpio/smartFinance.git](https://github.com/LarissaOlimpio/smartFinance.git)
+    ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+
+4.  **Open in your browser:**
+    Navigate to `http://localhost:5173`
+
+> [!IMPORTANT]
+> This project uses the **TanStack Router CLI**. The `npm run dev` command uses `concurrently` to run both Vite and the route generator (`tsr watch`) simultaneously. The `routeTree.gen.ts` file will be generated automatically on the first run.
+
+## 🏗️ Project Structure
+
+```text
+src/
+ ├── assets/         # Static files (images, icons)
+ ├── components/     # UI Components (Buttons, Modals, Cards)
+ ├── constants/      # Global constants and configurations
+ ├── hooks/          # Custom hooks for business logic and state
+ ├── routes/         # Route definitions (TanStack Router)
+ ├── types/          # TypeScript Interfaces and definitions
+ ├── utils/          # Utility functions (Formatters, Validators)
+ ├── App.tsx         # Main application component
+ └── main.tsx        # Application entry point
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
-
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+ Developed with ❤️ by Larissa Olimpio
