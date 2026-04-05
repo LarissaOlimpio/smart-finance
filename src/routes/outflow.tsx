@@ -45,7 +45,7 @@ function OutflowComponent() {
     if (finance.currentPage > totalPages) {
       finance.setCurrentPage(totalPages);
     }
-  }, [finance.currentPage, finance.setCurrentPage, totalPages]);
+  }, [finance.currentPage, finance.setCurrentPage, totalPages, finance]);
 
   const startIndex = (finance.currentPage - 1) * itemsPerPage;
   const currentItems = filteredItems.slice(
@@ -56,7 +56,7 @@ function OutflowComponent() {
   return (
     <div className="min-h-screen flex-1 bg-gray-50 p-4 md:p-8">
       <div className="mb-6 flex flex-col items-center gap-4 md:flex-row md:justify-between">
-        <div className="flex flex-1 flex-col items-center gap-5 sm:flex-row sm:items-center sm:items-start">
+        <div className="flex flex-1 flex-col items-center gap-5 sm:flex-row sm:items-start">
           <h1 className="text-3xl font-bold text-gray-900">Outflows</h1>
           <SearchItem value={searchTerm} onChange={setSearchTerm} />
         </div>
