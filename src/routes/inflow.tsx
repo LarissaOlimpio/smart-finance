@@ -6,6 +6,7 @@ import TableComponent from "../components/Table/TableComponent";
 import Pagination from "../components/Pagination/Pagination";
 import { useState, useEffect } from "react";
 import SearchItem from "../components/SearchItem/SearchItem";
+import ConfirmDeleteDialog from "../components/ConfirmDeleteDialog/ConfirmDeleteDialog";
 
 export const Route = createFileRoute("/inflow")({
   component: InflowComponent,
@@ -14,6 +15,13 @@ export const Route = createFileRoute("/inflow")({
 function InflowComponent() {
   const finance = useFinance("inflows");
   const [searchTerm, setSearchTerm] = useState("");
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  const handleAskDelete = (id: string) => {
+    setSelectedId(id);
+    setOpenDeleteDialog(true);
+  };
 
   const category: categoryOptions[] = [
     { name: "salary", value: "Salary" },
@@ -89,10 +97,20 @@ function InflowComponent() {
         <TableComponent
           badgeColor="green"
           data={currentItems}
-          onDelete={finance.handleDelete}
+          onDelete={handleAskDelete}
           onEdit={finance.handleEdit}
         />
       </div>
+      <ConfirmDeleteDialog
+        open={openDeleteDialog}
+        onOpenChange={setOpenDeleteDialog}
+        onConfirm={() => {
+          if (selectedId) {
+            finance.handleDelete(selectedId);
+          }
+          setOpenDeleteDialog(false);
+        }}
+      />
       <Pagination
         currentPage={finance.currentPage}
         totalPages={totalPages}
